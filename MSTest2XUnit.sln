@@ -5,6 +5,14 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSTest2XUnit", "MSTest2XUnit\MSTest2XUnit.csproj", "{C702AA13-8CE1-4845-81F7-C334789D813E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XUnitConverter.Core", "XUnitConverter\XUnitConverter.Core.csproj", "{81B0FF57-C128-4F6B-83C7-94DBAF261582}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5C448A22-2C2C-4262-AB43-0523CC3EAC23}"
+	ProjectSection(SolutionItems) = preProject
+		CHANGELOG.md = CHANGELOG.md
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +23,10 @@ Global
 		{C702AA13-8CE1-4845-81F7-C334789D813E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C702AA13-8CE1-4845-81F7-C334789D813E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C702AA13-8CE1-4845-81F7-C334789D813E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81B0FF57-C128-4F6B-83C7-94DBAF261582}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81B0FF57-C128-4F6B-83C7-94DBAF261582}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81B0FF57-C128-4F6B-83C7-94DBAF261582}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81B0FF57-C128-4F6B-83C7-94DBAF261582}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

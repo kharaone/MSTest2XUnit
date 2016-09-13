@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <Extern href="stdidcmd.h"/>
+
+
+  <Extern href="vsshlids.h"/>
+
+  <Commands package="guidMSTest2XUnitCommandPackage">
+    <Groups>
+      <Group guid="guidMSTest2XUnitCommandPackageCmdSet" id="MSTest2XUnitGroup" priority="0x0300">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_TOOLS"/>
+      </Group>
+    </Groups>
+
+    <Buttons>
+      <Button guid="guidMSTest2XUnitCommandPackageCmdSet" id="MSTest2XUnitCommandId" priority="0x0600" type="Button">
+        <Parent guid="guidMSTest2XUnitCommandPackageCmdSet" id="MSTest2XUnitGroup" />
+        <Icon guid="guidImages" id="bmpPic1" />
+        <Strings>
+          <ButtonText>Migrate MSTest to XUnit..</ButtonText>
+        </Strings>
+      </Button>
+    </Buttons>
+
+    <Bitmaps>
+      <Bitmap guid="guidImages" href="Resources\MSTest2XUnitCommand.png" usedList="bmpPic1"/>
+    </Bitmaps>
+  </Commands>
+
+  <Symbols>
+
+    <GuidSymbol name="guidMSTest2XUnitCommandPackage" value="{7274ca09-e9f5-406b-bab7-eb23c1969e4b}" />
+
+
+    <GuidSymbol name="guidMSTest2XUnitCommandPackageCmdSet" value="{8fdde5ef-0eba-404b-b40a-962e31969775}">
+      <IDSymbol name="MSTest2XUnitGroup" value="0x1020" />
+      <IDSymbol name="MSTest2XUnitCommandId" value="0x0100" />
+    </GuidSymbol>
+
+    <GuidSymbol name="guidImages" value="{d8359279-256e-4ad4-9e64-e644bdb8fa15}" >
+      <IDSymbol name="bmpPic1" value="1" />
+    </GuidSymbol>
+  </Symbols>
+</CommandTable>
