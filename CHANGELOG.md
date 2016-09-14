@@ -1,7 +1,8 @@
 # Roadmap
 
-- [x] A feature that has been completed
-- [ ] A feature that has NOT yet been completed
+- [ ] DeploymentItem attribute handle
+- [ ] Assert.Fail handle
+- [ ] Assert text messages removal
 
 Features that have a checkmark are complete and available for
 download in the
@@ -12,18 +13,14 @@ download in the
 These are the changes to each version that has been released
 on the official Visual Studio extension gallery.
 
-## 1.1
-
-**2016-09-13**
-
-- [x] Feature 3
-- [x] Feature 4
-
 ## 1.0
 
-**2016-09-12**
+**2016-09-14**
 
 - [x] Initial release
-- [x] Feature 1
-- [x] Feature 2
-  - [x] Sub feature
+- [x] Removes TestClass attribute
+- [x] Replace MSTest Asserts calls with XUnit.Asserts calls
+- [x] Replace Ignore attributes with Skipped Fact attributes
+- [x] Replace TestCategory attributes with Trait attributes
+- [x] Replace ExpectedException with Assert.Throws<> wrapped block
+- [x] Remove MSTest reference and add XUnit nuget packages
