@@ -63,8 +63,7 @@ public class Tests
             string expected = @"
 public class Tests
 {
-    [Trait(""Category"", ""SomeCategoryName"")]
-    [Something, SomeOther]
+    [Something, SomeOther, Trait(""Category"", ""SomeCategoryName"")]
     public void TestA()
     {
         int actual = 1;
@@ -93,8 +92,7 @@ public class Tests
             string expected = @"
 public class Tests
 {
-    [Trait(""Category"", ""SomeCategoryName1"")]
-    [Trait(""Category"", ""SomeCategoryName2"")]
+    [Trait(""Category"", ""SomeCategoryName1""), Trait(""Category"", ""SomeCategoryName2"")]
     public void TestA()
     {
         int actual = 1;
@@ -167,8 +165,7 @@ public class Tests
             string source = @"
 public class Tests
 {
-    [TestMethod]
-    [somthing, TestCategory(""Manual""), TestCategory(""Guild API Integration""), TestCategory(""CM_CS_GUILD_DESCRIPTION_SET"")]
+    [Something, TestCategory(""SomeCategoryName1""), TestCategory(""SomeCategoryName2""), TestCategory(""SomeCategoryName3"")]
     public void TestA()
     {
         int actual = 1;
@@ -178,7 +175,7 @@ public class Tests
             string expected = @"
 public class Tests
 {
-    [Something]
+    [Something, Trait(""Category"", ""SomeCategoryName1""), Trait(""Category"", ""SomeCategoryName2""), Trait(""Category"", ""SomeCategoryName3"")]
     public void TestA()
     {
         int actual = 1;

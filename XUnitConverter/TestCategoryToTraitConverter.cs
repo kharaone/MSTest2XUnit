@@ -46,27 +46,28 @@ namespace XUnitConverter
                     .Attributes
                     .Where(attribute => attribute.Name.ToString().Equals("TestCategory")).ToList();
 
-                    var localAttributeList = attributeList;
+                    var localAttributeList = new Stack<AttributeListSyntax>();
+                    localAttributeList.Push(attributeList);
                     foreach (var nodeToUpdate in nodeToUpdates)
                     {
                         var categoryName = nodeToUpdate.ArgumentList.Arguments.ToString();
                         var traitAttribute =
                             nodeToUpdate.WithName(ParseName("Trait"))
                                 .WithArgumentList(ParseAttributeArgumentList(string.Concat("(", @"""Category"",", categoryName, @")")));
+                        var previous = localAttributeList.Pop();
+                        var node = previous.Attributes.Where(attribute => attribute.Name.ToString().Equals("TestCategory")).First();
+                        localAttributeList.Push((AttributeListSyntax)VisitAttributeList(previous.ReplaceNode(node, traitAttribute)));
 
-                        localAttributeList =
-                            (AttributeListSyntax)VisitAttributeList(
-                                attributeList.RemoveNode(nodeToUpdate, SyntaxRemoveOptions.KeepLeadingTrivia));
+                        //newAttributes = newAttributes.Add(AttributeList().WithAttributes(SeparatedList(new List<AttributeSyntax> { traitAttribute })));
 
-                        newAttributes = newAttributes.Add(AttributeList().WithAttributes(SeparatedList(new List<AttributeSyntax> { traitAttribute })));
-                        if(nodeToUpdates.Count() != attributeList.Attributes.Count)
-                        {
-                            newAttributes = newAttributes.Add(localAttributeList);
-                        }
                     }
                     if (!nodeToUpdates.Any())
                     {
-                        newAttributes = newAttributes.Add(localAttributeList);
+                        newAttributes = newAttributes.Add(attributeList);
+                    }
+                    else
+                    {
+                        newAttributes = newAttributes.Add(localAttributeList.Pop());
                     }
                     
                 }
