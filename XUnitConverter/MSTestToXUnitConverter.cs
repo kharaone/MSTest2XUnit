@@ -201,9 +201,10 @@ namespace XUnitConverter
                     var attributeListSyntax = (AttributeListSyntax)rewrittenNode.Parent;
                     var methodDeclarationSyntax = (MethodDeclarationSyntax)attributeListSyntax.Parent;
 
-                    var className = transformationRoot.DescendantNodes().OfType<ClassDeclarationSyntax>().Last().Identifier;
+                    var className = transformationRoot.DescendantNodes().OfType<ClassDeclarationSyntax>().First().Identifier;
                     ConstructorDeclarationSyntax ctorSyntax = ConstructorDeclaration(new SyntaxList<AttributeListSyntax>(), methodDeclarationSyntax.Modifiers, className.NormalizeWhitespace(), methodDeclarationSyntax.ParameterList, null, methodDeclarationSyntax.Body);
-                    transformationRoot = transformationRoot.ReplaceNode(methodDeclarationSyntax, ctorSyntax);
+                    var leadingtrivia = methodDeclarationSyntax.GetLeadingTrivia();
+                    transformationRoot = transformationRoot.ReplaceNode(methodDeclarationSyntax, ctorSyntax.WithLeadingTrivia(leadingtrivia));
                 }
                 return transformationRoot;
 
@@ -236,12 +237,8 @@ namespace XUnitConverter
 
                     transformationRoot = transformationRoot.ReplaceNode(methodDeclarationSyntax, methodDeclarationSyntax.WithAttributeLists(new SyntaxList<AttributeListSyntax>()).WithIdentifier(Identifier("Dispose").NormalizeWhitespace()));
                     var classDeclarationSyntax = transformationRoot.DescendantNodes().OfType<ClassDeclarationSyntax>().First();
-                    var class2 =
-                        classDeclarationSyntax.WithBaseList(
-                            BaseList(
-                                SingletonSeparatedList<BaseTypeSyntax>(
-                                    SimpleBaseType(
-                                        IdentifierName("IDisposable"))))).NormalizeWhitespace();
+                    var foo = classDeclarationSyntax.BaseList != null ? classDeclarationSyntax.BaseList.Types.Add(SimpleBaseType(IdentifierName("IDisposable"))) : SingletonSeparatedList<BaseTypeSyntax>(SimpleBaseType(IdentifierName("IDisposable")));
+                    var class2 = classDeclarationSyntax.WithBaseList(BaseList(foo)).NormalizeWhitespace();
                     transformationRoot = transformationRoot.ReplaceNode(classDeclarationSyntax, class2);
                 }
                 return transformationRoot;

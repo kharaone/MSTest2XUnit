@@ -160,5 +160,33 @@ public class Tests
 
             await Verify(source, expected);
         }
+
+        [Fact]
+        public async Task TestCategoryToTraitWithMultipleCategoryAttributes()
+        {
+            string source = @"
+public class Tests
+{
+    [TestMethod]
+    [somthing, TestCategory(""Manual""), TestCategory(""Guild API Integration""), TestCategory(""CM_CS_GUILD_DESCRIPTION_SET"")]
+    public void TestA()
+    {
+        int actual = 1;
+    }
+}
+";
+            string expected = @"
+public class Tests
+{
+    [Something]
+    public void TestA()
+    {
+        int actual = 1;
+    }
+}
+";
+
+            await Verify(source, expected);
+        }
     }
 }

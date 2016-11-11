@@ -304,5 +304,136 @@ namespace System.Composition.UnitTests
 ";
             await Verify(text, expected);
         }
+
+
+        [Fact]
+        public async Task TestInnerClass()
+        {
+            string text = @"
+using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+namespace System.Composition.UnitTests
+{
+    [TestClass]
+    public class MyTestClass
+    {
+        public class MyTestClass2
+        {
+            public void Clean()
+            {
+            }
+        }
+
+        [TestInitialize]
+        public void Init()
+        {
+        }
     }
 }
+";
+            var expected = @"
+using System;
+using Xunit;
+
+namespace System.Composition.UnitTests
+{
+    public class MyTestClass
+    {
+        public class MyTestClass2
+        {
+            public void Clean()
+            {
+            }
+        }
+
+        public MyTestClass()
+        {
+        }
+    }
+}
+";
+            await Verify(text, expected);
+        }
+
+        [Fact]
+        public async Task TruncatedRegion()
+        {
+            string text = @"
+using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+namespace System.Composition.UnitTests
+{
+    [TestClass]
+    public class MyTestClass
+    {
+        #region MyRegion
+        [TestInitialize]
+        public void Init()
+        {
+        }
+        #endregion
+    }
+}
+";
+            var expected = @"
+using System;
+using Xunit;
+
+namespace System.Composition.UnitTests
+{
+    public class MyTestClass
+    {
+        #region MyRegion
+        public MyTestClass()
+        {
+        }
+        #endregion
+    }
+}
+";
+            await Verify(text, expected);
+        }
+
+        [Fact]
+        public async Task IDisposableDontOverwriteExistingInheritance()
+        {
+            string text = @"
+using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+namespace System.Composition.UnitTests
+{
+    [TestClass]
+    public class MyClass : ClassBase1, ClassBase2
+    {
+        [TestCleanup]
+        public override void Cleanup()
+        {
+            //cleaning
+        }
+    }
+}
+";
+            var expected = @"
+using System;
+using Xunit;
+
+namespace System.Composition.UnitTests
+{
+    public class MyClass : ClassBase1, ClassBase2, IDisposable
+    {
+        public override void Dispose()
+        {
+            //cleaning
+        }
+    }
+}
+";
+            await Verify(text, expected);
+        }
+    }
+}
+
+    
